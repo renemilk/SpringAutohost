@@ -10,7 +10,8 @@ class Master (threading.Thread):
 		self.Server = ClassServer
 		self.Debug = ClassServer.Debug
 		self.Debug ('Master Init')
-		self.Lobby = lobby.Lobby (ClassServer, self.HandleInput, self.HandleEvent, ClassServer.Config['Account'])
+		logininfo = ( ClassServer.Config.get('MASTER','Account'), ClassServer.Config.get('MASTER','Password'), ClassServer.Config.get('MASTER','BattlePort') )
+		self.Lobby = lobby.Lobby (ClassServer, self.HandleInput, self.HandleEvent, logininfo)
 	
 	
 	def run (self):

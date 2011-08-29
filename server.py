@@ -35,7 +35,7 @@ class Server(Daemon):
 			self.Unitsync = __import__('pyunitsync')
 		except:
 			import unitsync
-			self.Unitsync = unitsync.Unitsync (self.Config['PathUnitsync'])
+			self.Unitsync = unitsync.Unitsync (self.Config.get('General','PathUnitsync'))
 		self.Unitsync.Init (True, 1)
 		self.LoadMaps ()
 		self.LoadMods ()

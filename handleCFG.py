@@ -1,5 +1,6 @@
 # -*- coding: ISO-8859-1 -*-
 import sys
+from ConfigParser import SafeConfigParser as ConfigFile
 
 class HandleCFG:
 	def __init__ (self, Class):
@@ -10,7 +11,7 @@ class HandleCFG:
 	
 	def LoadCFG (self):
 		self.Debug ("Load CFG")
-		self.Server.Config = {}
+		self.Server.Config = ConfigFile()
 		if len (sys.argv) < 2:
 			print 'Missing config file (python server.py <conf file1> <font file2> ...)'
 			sys.exit ()
@@ -69,19 +70,4 @@ class HandleCFG:
 	
 	def LoadFile (self, File):
 		self.Debug ("Load file: " + File)
-		ConfigType = ''
-		FP = open (File, "r")
-		for Line in FP:
-			Line = Line.strip ()
-			if Line and not Line[0] == '#':
-				if Line[0:8] == '[MASTER]':
-					ConfigType = 'Master'
-				elif Line[0:7] == '[SLAVE]':
-					ConfigType = 'Slave'
-				elif Line.index ('='):
-#					print '::' + ConfigType + '::' + Line
-#					print Line.index ('=')
-#					print Line[0:Line.index ('='):]
-#					print Line[Line.index ('=') + 1:]
-					self.Server.Config[Line[0:Line.index ('='):]] = Line[Line.index ('=') + 1:]
-		FP.close ()
+		self.Server.Config.read(File)

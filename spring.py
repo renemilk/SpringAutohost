@@ -26,9 +26,9 @@ class Spring:
 		self.GenerateBattleScript (Script)
 		#reopening the file is not guaranteed to work on win
 		if self.Headless:
-			self.SpringPID = subprocess.Popen([self.Server.Config['PathSpringHeadless'], ScriptURI]) 
+			self.SpringPID = subprocess.Popen([self.Server.Config.get('General','PathSpringHeadless'), ScriptURI]) 
 		else:
-			self.SpringPID = subprocess.Popen([self.Server.Config['PathSpringDedicated'], ScriptURI]) 
+			self.SpringPID = subprocess.Popen([self.Server.Config.get('General','PathSpringDedicated'), ScriptURI]) 
 		
 		self.SpringUDP = SpringUDP (self, self.Debug)
 		self.SpringUDP.start ()
